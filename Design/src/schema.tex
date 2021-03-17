@@ -1,0 +1,48 @@
+\documentclass{article}
+
+% Formatting
+\usepackage[utf8]{inputenc}
+\usepackage[margin=1in]{geometry}
+\usepackage[titletoc,title]{appendix}
+
+\usepackage{verbatim}
+\usepackage[export]{adjustbox}
+
+\usepackage{setspace}
+
+% Images
+% https://www.overleaf.com/learn/latex/Inserting_Images
+% https://en.wikibooks.org/wiki/LaTeX/Floats,_Figures_and_Captions
+\usepackage{graphicx,float}
+
+% References
+% https://www.overleaf.com/learn/latex/Bibliography_management_in_LaTeX
+% https://en.wikibooks.org/wiki/LaTeX/Bibliography_Management
+\usepackage{biblatex}
+\addbibresource{references.bib}
+
+% Title content
+\title{Relational Mapping of EER Diagram}
+% \author{authorname}
+\date{March 17, 2021}
+
+\begin{document}
+
+\maketitle
+
+\setstretch{1.5}
+
+\section{Relational Mapping}
+City[\underline{City, Country}, Population, Size] \\
+Borough[\underline{City, Country, Borough}, Population, Size] \\
+WaterUser[\underline{ID}, Region, FundingSource, TDS, StreetLocation, BuildingType, Borough] \\
+CityAvgWater[\underline{ID}, City, StartDate, EndDate, Consumption, Changes] \\
+BoroughAvgWater[\underline{ID}, Borough, StartDate, EndDate, Consumption, Changes] \\
+UserWater[\underline{ID}, City, User, EndDate, Consumption, Changes] \\~\\
+\textbf{Foreign Keys:} \\
+Borough.City references City \\
+WaterUser.Borough references Borough \\
+CityAvgWater.City references City \\
+BoroughAvgWater.Borough references Borough \\
+UserWater.User references User
+\end{document}

@@ -23,7 +23,7 @@
 
 % Title content
 \title{Relational Mapping of EER Diagram}
-% \author{authorname}
+% \author{}
 \date{March 17, 2021}
 
 \begin{document}
@@ -36,17 +36,17 @@
 City[\underline{City, Country}, Population, Size] \\
 Borough[\underline{Borough, City, Country}, Population, Size] \\
 WaterUser[\underline{ID}, Borough, Region, FundingSource, TDS, StreetLocation, BuildingType] \\
-CityAvgWater[\underline{ID}, City, Consumption, Charges] \\
-BoroughAvgWater[\underline{ID}, Borough, StartDate, EndDate, Consumption, Charges] \\
+CityWater[\underline{ID}, City, StartDate, EndDate, Consumption, Charges] \\
+BoroughWater[\underline{ID}, Borough, StartDate, EndDate, Consumption, Charges] \\
 UserWater[\underline{ID}, User, StartDate, EndDate, Consumption, Charges] \\
 FutureCity[\underline{ID}, City, StartDate, EndDate, Consumption] \\
 FutureBorough[\underline{ID}, Borough, StartDate, EndDate, Consumption]
 \\~\\
 \textbf{Foreign Keys:} \\
-Borough.City references City.\{City, Country\} \\
+Borough.{City, Country} references City.\{City, Country\} \\
 WaterUser.Borough references Borough.\{Borough, City, Country\} \\
-CityAvgWater.City references City.\{City, Country\} \\
-BoroughAvgWater.Borough references Borough.\{Borough, City, Country\} \\
+CityWater.City references City.\{City, Country\} \\
+BoroughWater.Borough references Borough.\{Borough, City, Country\} \\
 UserWater.User references WaterUser.ID \\
 FutureCity.City references City.\{City, Country\} \\
 FutureBorough.Borough references Borough.\{Borough, City, Country\} \\

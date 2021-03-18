@@ -13,7 +13,7 @@
 ### Part 2: Formal specifications 
 - [ ] Project description
 - [x] Updated E/R diagram
-- [ ] The schema from mapping the ER diagram
+- [x] The schema from mapping the ER diagram
 - [ ] SQL dump to create tables in SQL
 - [ ] Screenshot of platform performing a query
 

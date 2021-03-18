@@ -34,15 +34,20 @@
 
 \section{Relational Mapping}
 City[\underline{City, Country}, Population, Size] \\
-Borough[\underline{City, Country, Borough}, Population, Size] \\
-WaterUser[\underline{ID}, Region, FundingSource, TDS, StreetLocation, BuildingType, Borough] \\
-CityAvgWater[\underline{ID}, City, StartDate, EndDate, Consumption, Changes] \\
-BoroughAvgWater[\underline{ID}, Borough, StartDate, EndDate, Consumption, Changes] \\
-UserWater[\underline{ID}, City, User, EndDate, Consumption, Changes] \\~\\
+Borough[\underline{Borough, City, Country}, Population, Size] \\
+WaterUser[\underline{ID}, Borough, Region, FundingSource, TDS, StreetLocation, BuildingType] \\
+CityAvgWater[\underline{ID}, City, Consumption, Charges] \\
+BoroughAvgWater[\underline{ID}, Borough, StartDate, EndDate, Consumption, Charges] \\
+UserWater[\underline{ID}, User, StartDate, EndDate, Consumption, Charges] \\
+FutureCity[\underline{ID}, City, StartDate, EndDate, Consumption] \\
+FutureBorough[\underline{ID}, Borough, StartDate, EndDate, Consumption]
+\\~\\
 \textbf{Foreign Keys:} \\
-Borough.City references City \\
-WaterUser.Borough references Borough \\
-CityAvgWater.City references City \\
-BoroughAvgWater.Borough references Borough \\
-UserWater.User references User
+Borough.City references City.\{City, Country\} \\
+WaterUser.Borough references Borough.\{Borough, City, Country\} \\
+CityAvgWater.City references City.\{City, Country\} \\
+BoroughAvgWater.Borough references Borough.\{Borough, City, Country\} \\
+UserWater.User references WaterUser.ID \\
+FutureCity.City references City.\{City, Country\} \\
+FutureBorough.Borough references Borough.\{Borough, City, Country\} \\
 \end{document}

@@ -35,19 +35,19 @@
 \section{Relational Mapping}
 City[\underline{City, Country}, Population, Size] \\
 Borough[\underline{Borough, City, Country}, Population, Size] \\
-WaterUser[\underline{ID}, Borough, Region, FundingSource, TDS, StreetLocation, BuildingType] \\
-CityWater[\underline{ID}, City, StartDate, EndDate, Consumption, Charges] \\
-BoroughWater[\underline{ID}, Borough, StartDate, EndDate, Consumption, Charges] \\
+WaterUser[\underline{ID}, Borough, City, Country, Region, FundingSource, TDS, StreetLocation, BuildingType] \\
+CityWater[\underline{ID}, City, Country, StartDate, EndDate, Consumption, Charges] \\
+BoroughWater[\underline{ID}, Borough, City, Country, StartDate, EndDate, Consumption, Charges] \\
 UserWater[\underline{ID}, User, StartDate, EndDate, Consumption, Charges] \\
-FutureCity[\underline{ID}, City, StartDate, EndDate, Consumption] \\
-FutureBorough[\underline{ID}, Borough, StartDate, EndDate, Consumption]
+FutureCity[\underline{ID}, City, Country, StartDate, EndDate, Consumption] \\
+FutureBorough[\underline{ID}, Borough, City, Country, StartDate, EndDate, Consumption]
 \\~\\
 \textbf{Foreign Keys:} \\
-Borough.{City, Country} references City.\{City, Country\} \\
-WaterUser.Borough references Borough.\{Borough, City, Country\} \\
-CityWater.City references City.\{City, Country\} \\
-BoroughWater.Borough references Borough.\{Borough, City, Country\} \\
+Borough.\{City, Country\} references City.\{City, Country\} \\
+WaterUser.\{Borough, City, Country\} references Borough.\{Borough, City, Country\} \\
+CityWater.\{City, Country\} references City.\{City, Country\} \\
+BoroughWater.\{Borough, City, Country\} references Borough.\{Borough, City, Country\} \\
 UserWater.User references WaterUser.ID \\
-FutureCity.City references City.\{City, Country\} \\
-FutureBorough.Borough references Borough.\{Borough, City, Country\} \\
+FutureCity.\{City, Country\} references City.\{City, Country\} \\
+FutureBorough.\{Borough, City, Country\} references Borough.\{Borough, City, Country\} \\
 \end{document}

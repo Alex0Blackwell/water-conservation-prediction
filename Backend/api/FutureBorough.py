@@ -1,4 +1,4 @@
-from flask import Blueprint
+from flask import Blueprint, request, jsonify, current_app as app
 
 futureborough_api = Blueprint('futureborough_api', __name__)
 

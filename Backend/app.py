@@ -40,8 +40,8 @@ def index():
 def index_post():
   app.config['DB_USERNAME'] = request.form['username']
   app.config['DB_PASSWORD'] = request.form['password']
-  app.config['DB_HOST'] = 'cmpt354-jakk.cfchtqoqn7bd.us-west-2.rds.amazonaws.com'
-  app.config['DB_SCHEMA'] = 'jakk'
+  app.config['DB_HOST'] = request.form['host_name']
+  app.config['DB_SCHEMA'] = request.form['db_name']
 
   return render_template('index.html', variable=get_db().get_response_text())
 

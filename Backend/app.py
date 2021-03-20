@@ -1,5 +1,6 @@
 from flask import Flask, request, render_template
-from connection import DbConnection
+from mysql.connector import connect
+from connection import Database
 from api.Borough import borough_api
 from api.BoroughWater import boroughwater_api
 from api.City import city_api
@@ -12,7 +13,7 @@ from api.WaterUser import wateruser_api
 
 app = Flask(__name__)
 
-#registers APIs
+# registers api routing
 app.register_blueprint(borough_api, url_prefix='/api')
 app.register_blueprint(boroughwater_api, url_prefix='/api')
 app.register_blueprint(city_api, url_prefix='/api')
@@ -23,13 +24,13 @@ app.register_blueprint(userwater_api, url_prefix='/api')
 app.register_blueprint(wateruser_api, url_prefix='/api')
 
 
-def test_connection():
-  con = DbConnection(
+def get_db():
+  db = Database(
     app.config['DB_USERNAME'], 
     app.config['DB_PASSWORD'],
     app.config['DB_HOST'],
     app.config['DB_SCHEMA'])
-  return con.cursor()
+  return db
 
 @app.route("/")
 def index():
@@ -41,7 +42,8 @@ def index_post():
   app.config['DB_PASSWORD'] = request.form['password']
   app.config['DB_HOST'] = 'cmpt354-jakk.cfchtqoqn7bd.us-west-2.rds.amazonaws.com'
   app.config['DB_SCHEMA'] = 'jakk'
-  return render_template('index.html', variable=test_connection()[1])
+
+  return render_template('index.html', variable=get_db().get_response_text())
 
 @app.errorhandler(404)
 def page_not_found(e):

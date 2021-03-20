@@ -1,28 +1,40 @@
+from flask import Flask, current_app
 import mysql.connector
 from mysql.connector import (connection)
 from mysql.connector import errorcode
 
-class DbConnection:
+class Database:
     def __init__(self, user, password, host, database):
         self.user = user
         self.password = password
         self.host = host
         self.database = database
+        self.response_text = "Connection not yet established."
 
-    def cursor(self):
-        cursor = ""
+        #create connection
+        connection = ""
         try:
-            cnx = mysql.connector.connect(user=self.user,
-                                            password=self.password,
-                                            host=self.host,
-                                            database=self.database)
-            cursor = cnx.cursor()
-            response_text = "Successfully connected"
+            connection = mysql.connector.connect(user=user,
+                                            password=password,
+                                            host=host,
+                                            database=database)
+            self.response_text = "Successfully connected"
         except mysql.connector.Error as err:
             if err.errno == errorcode.ER_ACCESS_DENIED_ERROR:
-                response_text =  "Something is wrong with your user name or password"
+                self.response_text =  "Something is wrong with your user name or password"
             elif err.errno == errorcode.ER_BAD_DB_ERROR:
-                response_text = "Database does not exist"
+                self.response_text = "Database does not exist"
             else:
-                response_text = err
-        return cursor, response_text
+                self.response_text = err
+        self.connection = connection
+
+    @classmethod
+    def fromconfig(cls):
+        return cls(
+                current_app.config['DB_USERNAME'], 
+                current_app.config['DB_PASSWORD'],
+                current_app.config['DB_HOST'],
+                current_app.config['DB_SCHEMA']) 
+
+    def get_response_text(self):
+        return self.response_text

@@ -1,0 +1,110 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;700&display=swap');
+
+:root {
+  --primary-color: #118dff;
+  --secondary-color: #ff1167;
+  --black: #000;
+  --white: #fff;
+  --grey: #7d8dad;
+  --light-grey: #c2cce0;
+
+  --gutter: 2.5em 3em;
+}
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 16px;
+}
+
+html,
+body {
+  width: 100%;
+}
+
+.heading1,
+.heading2,
+.heading3 {
+  font-weight: 700;
+}
+
+.heading1 {
+  font-size: 2rem;
+}
+
+.heading2 {
+  font-size: 1.75rem;
+}
+
+.heading3 {
+  font-size: 1.5rem;
+}
+
+.subtitle,
+.control-group label {
+  color: var(--grey);
+}
+
+.container {
+  padding: var(--gutter);
+  height: 100%;
+}
+
+header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+header .subtitle {
+  margin-left: 1em;
+}
+
+.controls {
+  padding: var(--gutter);
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.control-group label {
+  display: block;
+  margin-bottom: 0.5em;
+}
+
+.control-group .select select {
+  display: none;
+}
+
+.control-group .select {
+  padding: 0.25em 1em;
+  border: 1px solid var(--light-grey);
+  font-size: 18px;
+  border-radius: 10em;
+}
+
+.control-group.slider {
+  width: 50vw;
+}
+
+.control-group .slider {
+  -webkit-appearance: none;
+  width: 100%;
+  border-radius: 1em;
+  background-color: var(--light-grey);
+  outline: none;
+  height: 0.5em;
+}
+
+.control-group .slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 1.5em;
+  width: 1.5em;
+  background-color: var(--primary-color);
+  border-radius: 50%;
+}

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      Water You Doing, New York? | JAKK Team | Borealis AI Let's Solve It
+    </title>
+    <link rel="stylesheet" href="../static/main.css" />
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <h1 class="heading1">Water You Doing, New York?</h1>
+        <p class="subtitle">by JAKK Team</p>
+      </header>
+      <main>
+        <div class="controls">
+          <div class="control-group">
+            <label for="city">Location</label>
+            <select name="city" id="city" class="select">
+              <option value="Queens">Queens</option>
+              <option value="New York">New York</option>
+              <option value="Brooklyn">Brooklyn</option>
+            </select>
+          </div>
+          <div class="control-group slider">
+            <label for="timeSpan">Time Span</label>
+            <input
+              type="range"
+              name="timeSpan"
+              id="timeSpan"
+              class="slider"
+              min="1"
+              max="100"
+              value="1"
+            />
+          </div>
+        </div>
+        <canvas id="graph" class="graph"></canvas>
+      </main>
+    </div>
+  </body>
+  <script defer src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+  <script defer src="../static/graph.js"></script>
+</html>

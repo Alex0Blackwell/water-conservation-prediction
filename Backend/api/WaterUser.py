@@ -1,11 +1,23 @@
-from flask import Blueprint,Flask, current_app, jsonify
+from flask import Blueprint,Flask, current_app, jsonify, request
 from connection import Database
 
 wateruser_api = Blueprint('wateruser_api', __name__)
 
-@wateruser_api.route("/wateruser")
+@wateruser_api.route("/wateruser", methods=['GET'])
 def boroughList():
-    return "entry point for wateruser"
+    # Format is /wateruser?name=XXXX
+    # All arguments are mandatory
+    name = request.args['name']
+
+    db = Database.fromconfig()
+    cursor = db.connection.cursor()
+    query = ("SELECT * FROM jakk.WaterUser WHERE borough = %s")
+    cursor.execute(query, (name,))
+
+    result = cursor.fetchall()
+
+    db.connection.close()
+    return jsonify(result)
 
 @wateruser_api.route("/wateruser/all", methods=['GET'])
 def all():

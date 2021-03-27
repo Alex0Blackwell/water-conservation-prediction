@@ -1,11 +1,30 @@
-from flask import Blueprint,Flask, current_app, jsonify
+from flask import Blueprint,Flask, current_app, jsonify, request
 from connection import Database
+from dateutil.parser import parse
+from datetime import datetime
 
 userwater_api = Blueprint('userwater_api', __name__)
 
-@userwater_api.route("/userwater")
+@userwater_api.route("/userwater", methods=['GET'])
 def boroughList():
-    return "entry point for userwater"
+    # Format is /userwater?name=XXXX&intervalStart=YYYY-MM-DD&intervalEnd=YYYY-MM-DD
+    # All arguments are mandatory
+    name = request.args['name']
+    intervalStart = request.args['intervalStart']
+    intervalEnd = request.args['intervalEnd']
+
+    db = Database.fromconfig()
+    cursor = db.connection.cursor()
+    query = ("SELECT * FROM jakk.UserWater WHERE User = %s AND StartDate BETWEEN %s AND %s")
+
+    start = datetime.strptime(intervalStart, '%Y-%m-%d')
+    end = datetime.strptime(intervalEnd, '%Y-%m-%d')
+
+    cursor.execute(query, (name, start, end))
+    result = cursor.fetchall()
+
+    db.connection.close()
+    return jsonify(result)
 
 @userwater_api.route("/userwater/all", methods=['GET'])
 def all():

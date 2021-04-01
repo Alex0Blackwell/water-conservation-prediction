@@ -1,35 +1,96 @@
+const URL = "http://127.0.0.1:5000/"
 
-function getWaterData(region, startDate, endDate) {
-  // 1. Create a new XMLHttpRequest object
-  let xhr = new XMLHttpRequest();
 
-  // 2. Configure it: GET-request for the URL /article/.../load
-  xhr.open('GET', 'http://127.0.0.1:5000/api/');
+/**
+ * Gets API data, provided a URL. Returns as a 2D-array
+ * where each row is the requested data from each entity.
+ * Requested data is specified in the indexes list.
+ * 
+ * @param {string} url  the URL to request data from
+ * @param {array} indexes a list of requested indexes [optional]
+ * @returns a 2D-array of data from the requested endpoint
+ */
+let getApiData = function(url, indexes = [0]) {
+  return new Promise(function(myResolve, myReject) {
 
-  // 3. Send the request over the network
-  xhr.send();
+    let xhr = new XMLHttpRequest();
+    xhr.open('GET', url);
+    xhr.send();
 
-  // 4. This will be called after the response is received
-  xhr.onload = function() {
-    if (xhr.status != 200) { // analyze HTTP status of the response
-      console.log(`Error ${xhr.status}: ${xhr.statusText}`); // e.g. 404: Not Found
-    } else { // show the result
-      console.log(`Done, got ${xhr.response.length} bytes`); // response is the server response
-    }
-  };
+    xhr.onload = function() {
+      if (xhr.status != 200) {
+        console.error(`Error ${xhr.status}: ${xhr.statusText}`);
+      } else {
+        let data = [];
 
-  xhr.onprogress = function(event) {
-    if (event.lengthComputable) {
-      console.log(`Received ${event.loaded} of ${event.total} bytes`);
-    } else {
-      console.log(`Received ${event.loaded} bytes`); // no Content-Length
-    }
+        let response = JSON.parse(xhr.response);
+        for(let i = 0; i < response.length; ++i){
+          innerList = []
+          for(let ii = 0; ii < indexes.length; ++ii) {
+            innerList.push(response[i][indexes[ii]]);
+          }
+          data.push(innerList);
+        }
 
-  };
+        myResolve(data);
+      }
+    };
 
-  xhr.onerror = function() {
-    console.log("Request failed");
-  };
+    xhr.onerror = function() {
+      myReject("GET request failed");
+    };
+  });
+}
+
+
+/**
+ * Returns a list of cities on success, otherwise return an
+ * error.
+ * 
+ * @returns a list of cities 
+ */
+async function getCities() {
+  let url = URL + "api/city/all";
+
+  let myPromise = new Promise(function(myResolve, myReject) {
+    getApiData(url).then(
+      function(cities) {
+        console.log(cities);
+        myResolve(cities);
+      },
+      function(error) {
+        myReject("Failed to get cities\n" + error);
+      }
+    );
+  })
+
+  return myPromise;
+}
+
+
+function getBoroughs() {  }
+
+
+
+/**
+ * Get the user water, Borough water, and City water of a given time-frame.
+ * By default, the user water is returned. Specify a Borough to get or 
+ * City to get otherwise.
+ * 
+ * Cities: "new york"
+ * 
+ * Boroughs: "bronx", "brooklyn", "fha", "manhattan", "queens", "staten island"
+ * 
+ * @param {string} startDate  the first date to consider
+ * @param {string} endDate  the last date to consider
+ * @param {string} region the region [optional]
+ */
+async function getWaterData(startDate, endDate, region=None) {
+  // const URL = "http://127.0.0.1:5000/"  // default local Flask URL
+
+  let cities = await getCities();
+  let boroughs;
+
 }
 
 getWaterData(0, 0, 0);

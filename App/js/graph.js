@@ -26,11 +26,8 @@ let getApiData = function(url, indexes = [0]) {
         let response = JSON.parse(xhr.response);
         for(let i = 0; i < response.length; ++i) {
           data.push([]);
-          // innerList = []
-          for(let ii = 0; ii < indexes.length; ++ii) {
-            // innerList.push(response[i][indexes[ii]]);
+          for(let ii = 0; ii < indexes.length; ++ii)
             data[i].push(response[i][indexes[ii]]);
-          }
         }
 
         myResolve(data);
@@ -130,10 +127,22 @@ async function getWaterData(startDate, endDate, region) {
  * dropdown menu, and the time span slider.
  */
 async function createGraph() {
-  // get data first and create graph all at once
-  let waterData = await getWaterData("2015-01-01", "2019-01-01", "queens");  // example
-  console.log(waterData);
+  // TODO: get location and time span data from client
 
+  // get data first and create graph all at once
+  let regionData = await getWaterData("2015-01-01", "2019-01-01", "queens");  // example
+
+  let times = [];
+  regionData.forEach(element => {
+    times.push(element[0]);
+  });
+
+  let waterData = [];
+  regionData.forEach(element => {
+    waterData.push(element[1]);
+  });
+
+  // now graph!
   const ctx = document.getElementById('graph').getContext('2d')
 
   const PLOTS = Object.freeze({
@@ -150,21 +159,13 @@ async function createGraph() {
   let graph = new Chart(ctx, {
     type: 'line',
     data: {
-      labels: [
-        'January/21',
-        'February/21',
-        'March/21',
-        'April/21',
-        'May/21',
-        'June/21',
-        'July/21',
-      ],
+      labels: times,
       datasets: [
         {
           label: PLOTS.KNOWN_WATER_CONSUMPTION.label,
           backgroundColor: 'transparent',
           borderColor: PLOTS.KNOWN_WATER_CONSUMPTION.colour,
-          data: [0, 10, 5, 2, 20, 30, 45],
+          data: waterData,
         },
       ],
     },

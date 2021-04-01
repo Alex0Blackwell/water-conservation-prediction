@@ -1,4 +1,5 @@
 from flask import Flask, request, render_template
+from flask_cors import CORS, cross_origin
 from mysql.connector import connect
 from connection import Database
 from api.Borough import borough_api
@@ -12,6 +13,7 @@ from api.WaterUser import wateruser_api
 
 
 app = Flask(__name__)
+CORS(app)
 
 # registers api routing
 app.register_blueprint(borough_api, url_prefix='/api')

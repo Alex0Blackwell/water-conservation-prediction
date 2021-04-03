@@ -84,11 +84,11 @@ header .subtitle {
   padding: 0.25em 1em;
   border: 1px solid var(--light-grey);
   font-size: 18px;
-  border-radius: 10em;
+  border-radius: 5px;
 }
 
 .control-group.slider {
-  width: 50vw;
+  width: 100%;
 }
 
 .control-group .slider {

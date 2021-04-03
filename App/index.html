@@ -7,17 +7,25 @@
     <title>
       Water You Doing, New York? | JAKK Team | Borealis AI Let's Solve It
     </title>
-    <link rel="stylesheet" href="./css/main.css" />
+    <!-- <link rel="styleshcounteet" href="./css/main.css" /> -->
+    <link rel="stylesheet" href="./css/main.css">
+    <!-- Bootstrap 4 -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous">
   </head>
   <body>
     <div class="container">
-      <header>
-        <h1 class="heading1">Water You Doing, New York?</h1>
-        <p class="subtitle">by JAKK Team</p>
-      </header>
+      <div class="row">
+        <header class="col-12">
+          <h1 class="heading1">Water You Doing, New York?</h1>
+          <p class="subtitle">By: JAKK Team</p>
+        </header>
+      </div>
       <main>
-        <div class="controls">
-          <div class="control-group">
+        <!-- Location and time span -->
+        <div class="row">
+          <div class="col-md-3 col-12 control-group">
             <label for="city">Location</label>
             <select name="city" id="city" class="select">
               <option value="Queens">Queens</option>
@@ -25,7 +33,7 @@
               <option value="Brooklyn">Brooklyn</option>
             </select>
           </div>
-          <div class="control-group slider">
+          <div class="col-md-9 col-12 control-group slider">
             <label for="timeSpan">Time Span</label>
             <input
               type="range"
@@ -38,6 +46,67 @@
             />
           </div>
         </div>
+        <!-- Consumption and pricing -->
+        <div class="row">
+          <!-- Consumption (with mock data) -->
+          <div class="col-md-6 col-12">
+            <div class="row">
+              <h5>Consumption (Hundred Cubic Feet)</h5>
+            </div>
+            <div class="row">
+              <div class="col">
+                Average
+              </div>
+              <div class="col">
+                Maximum
+              </div>
+              <div class="col">
+                Minimum
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <b>543</b>
+              </div>
+              <div class="col">
+                <b>1380</b>
+              </div>
+              <div class="col">
+                <b>213</b>
+              </div>
+            </div>
+          </div>
+          <!-- Pricing (with mock data) -->
+          <div class="col-md-6 col-12">
+            <div class="row">
+              <h5>Pricing ($USD)</h5>
+            </div>
+            <div class="row">
+              <div class="col">
+                Average
+              </div>
+              <div class="col">
+                Maximum
+              </div>
+              <div class="col">
+                Minimum
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <b>$10321.12</b>
+              </div>
+              <div class="col">
+                <b>$25506.32</b>
+              </div>
+              <div class="col">
+                <b>$3839.69</b>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
         <canvas id="graph" class="graph"></canvas>
       </main>
     </div>

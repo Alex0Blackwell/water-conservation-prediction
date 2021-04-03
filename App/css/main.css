@@ -45,7 +45,8 @@ body {
 }
 
 .subtitle,
-.control-group label {
+.control-group label,
+.stats-label {
   color: var(--grey);
 }
 
@@ -107,4 +108,12 @@ header .subtitle {
   width: 1.5em;
   background-color: var(--primary-color);
   border-radius: 50%;
+}
+
+.graph {
+  max-height: 500px;
+}
+
+.mt-10 {
+  margin-top: 40px;
 }

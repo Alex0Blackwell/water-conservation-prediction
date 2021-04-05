@@ -45,7 +45,8 @@ body {
 }
 
 .subtitle,
-.control-group label {
+.control-group label,
+.stats-label {
   color: var(--grey);
 }
 
@@ -84,11 +85,11 @@ header .subtitle {
   padding: 0.25em 1em;
   border: 1px solid var(--light-grey);
   font-size: 18px;
-  border-radius: 10em;
+  border-radius: 5px;
 }
 
 .control-group.slider {
-  width: 50vw;
+  width: 100%;
 }
 
 .control-group .slider {
@@ -107,4 +108,12 @@ header .subtitle {
   width: 1.5em;
   background-color: var(--primary-color);
   border-radius: 50%;
+}
+
+.graph {
+  max-height: 500px;
+}
+
+.mt-40 {
+  margin-top: 40px;
 }

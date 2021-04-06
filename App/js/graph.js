@@ -137,27 +137,26 @@ const setUpMultiColorLineType = (predictedWaterConsumptionStartIndex = 30) => {
       const meta = this.getMeta()
       const points = meta.data || []
       const area = this.chart.chartArea
-      const originalDatasets = meta.dataset._children.filter(
+      const originalDataset = meta.dataset._children.filter(
         (data) => !isNaN(data._view.y)
       )
 
       // Plot the known water consumption
       meta.dataset._view.borderColor = PLOTS.KNOWN_WATER_CONSUMPTION.colour
-      meta.dataset._children = originalDatasets.slice(
+      meta.dataset._children = originalDataset.slice(
         0,
         predictedWaterConsumptionStartIndex + 1
       )
       meta.dataset.draw()
-      meta.dataset._children = originalDatasets
 
       // Plot the predicted water consumption
       meta.dataset._view.borderColor = PLOTS.PREDICTED_WATER_CONSUMPTION.colour
-      meta.dataset._children = originalDatasets.slice(
+      meta.dataset._children = originalDataset.slice(
         predictedWaterConsumptionStartIndex
       )
       meta.dataset.draw()
-      meta.dataset._children = originalDatasets
 
+      meta.dataset._children = originalDataset
       points.forEach(function (point) {
         point.draw(area)
       })
@@ -213,5 +212,5 @@ async function createGraph() {
   })
 }
 
-setUpMultiColorLineType(30)
+setUpMultiColorLineType(30) // TODO: Change '30' to length of known water data in water data array
 createGraph()

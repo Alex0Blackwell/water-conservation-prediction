@@ -26,6 +26,30 @@ def boroughList():
     db.connection.close()
     return jsonify(result)
 
+@boroughwater_api.route("/boroughwater/stats", methods=['GET'])
+def boroughStats():
+    # Format is /boroughwater/stats?name=XXXX&intervalStart=YYYY-MM-DD&intervalEnd=YYYY-MM-DD
+    # All arguments are mandatory
+    # Returns [avg(consumption), max(consumption), min(consumption), avg(charges), max(charges), min(charges)]
+    name = request.args['name']
+    intervalStart = request.args['intervalStart']
+    intervalEnd = request.args['intervalEnd']
+
+    db = Database.fromconfig()
+    cursor = db.connection.cursor()
+    query = ("SELECT CAST(AVG(Consumption) AS float), MAX(Consumption), MIN(Consumption)," 
+                "CAST(AVG(Charges) AS float), MAX(Charges), MIN(Charges)" 
+                "FROM jakk.BoroughWater WHERE Borough = %s AND StartDate BETWEEN %s AND %s")
+
+    start = datetime.strptime(intervalStart, '%Y-%m-%d')
+    end = datetime.strptime(intervalEnd, '%Y-%m-%d')
+
+    cursor.execute(query, (name, start, end))
+    result = cursor.fetchall()
+
+    db.connection.close()
+    return jsonify(result)
+
 @boroughwater_api.route("/boroughwater/all", methods=['GET'])
 def all():
     db = Database.fromconfig()

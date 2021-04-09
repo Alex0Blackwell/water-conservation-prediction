@@ -26,6 +26,28 @@ def boroughList():
     db.connection.close()
     return jsonify(result)
 
+@futurecity_api.route("/futurecity/stats", methods=['GET'])
+def futureCityStats():
+    
+    # Provide arguments intervalStart & intervalEnd, or 400/500 will be returned
+    # Format is /futurecity?intervalStart=YYYY-MM-DD&intervalEnd=YYYY-MM-DD
+    intervalStart = request.args['intervalStart']
+    intervalEnd = request.args['intervalEnd']
+
+    db = Database.fromconfig()
+    cursor = db.connection.cursor()
+    query = ("SELECT CAST(AVG(Consumption) AS float), MAX(Consumption), MIN(Consumption)" 
+                "FROM jakk.FutureCity WHERE StartDate BETWEEN %s AND %s")
+
+    start = datetime.strptime(intervalStart, '%Y-%m-%d')
+    end = datetime.strptime(intervalEnd, '%Y-%m-%d')
+
+    cursor.execute(query, (start, end))
+    result = cursor.fetchall()
+
+    db.connection.close()
+    return jsonify(result)
+
 @futurecity_api.route("/futurecity/all", methods=['GET'])
 def all():
     db = Database.fromconfig()

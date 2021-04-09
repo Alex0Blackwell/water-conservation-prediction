@@ -19,6 +19,7 @@ def index():
     db.connection.close()
     return jsonify(result)
 
+
 @borough_api.route("/borough/all", methods=['GET'])
 def all():
     db = Database.fromconfig()

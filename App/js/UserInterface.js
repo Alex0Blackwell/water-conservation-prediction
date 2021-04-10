@@ -177,4 +177,17 @@ class UserInterface {
       },
     })
   }
+
+  /**
+   * Set the stats (consumption and pricing) to reflect the current
+   * location and time.
+   */
+  setStats() {
+    document.getElementById('avg-consume').innerHTML = this.api.getAvgConsumption();
+    document.getElementById('max-consume').innerHTML = this.api.getMaxConsumption();
+    document.getElementById('min-consume').innerHTML = this.api.getMinConsumption();
+    document.getElementById('avg-price').innerHTML = '$'+this.api.getAvgPrice();
+    document.getElementById('max-price').innerHTML = '$'+this.api.getMaxPrice();
+    document.getElementById('min-price').innerHTML = '$'+this.api.getMinPrice();
+  }
 }

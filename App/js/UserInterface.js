@@ -43,10 +43,31 @@ class UserInterface {
   }
 
   /**
+   * Capitalize the first letter of a string.
+   * 
+   * @param {String} str  the string to be capitalized
+   * @returns the first letter capitalized
+   */
+  capitalize(str) {
+    return str.charAt(0).toUpperCase() + str.slice(1);
+  }
+
+  /**
    * Set the location dropdown menu to include regions supported
    * in the database.
    */
-  async setLocationDropdown() {  }
+  async setLocationDropdown() {
+    let regions = await this.api.getRegions();
+
+    let dropdown = document.getElementById('regionDropdown');
+    let regionToAdd;
+
+    for(let i = 0; i < regions.length; ++i) {
+      regionToAdd = document.createElement('option');
+      regionToAdd.text = regions[i].split(' ').map(this.capitalize).join(' ');
+      dropdown.add(regionToAdd);
+    }
+  }
 
   /**
    * Setup custom "multiColourLine" type to show known and

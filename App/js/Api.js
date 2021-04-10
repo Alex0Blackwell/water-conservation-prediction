@@ -26,7 +26,7 @@ class Api {
    * @param {int} indexes a list of requested indexes [optional]
    * @returns a 2D-array of data from the requested endpoint
    */
-  static getApiData(url, indexes = [0]) {
+  getApiData(url, indexes = [0]) {
     return new Promise(function (myResolve, myReject) {
       let xhr = new XMLHttpRequest()
       xhr.open('GET', url)
@@ -64,9 +64,10 @@ class Api {
    */
   async getRegionHelper(region) {
     let url = this.baseUrl + `api/${region}/all`
+    let apiReference = this;
 
     let promise = new Promise(function (resolve, reject) {
-      Api.getApiData(url).then(
+      apiReference.getApiData(url).then(
         function (data) {
           let res = []
 
@@ -143,9 +144,9 @@ class Api {
   async updateFieldsHelper() {
     // we can utilize concurrency here!
     await Promise.all([
-      await this.getCities(),
-      await this.getBoroughs(),
-      await this.getRegions()
+      this.getCities(),
+      this.getBoroughs(),
+      this.getRegions()
     ]);
   }
 
@@ -178,8 +179,9 @@ class Api {
 
     if (this.regions.indexOf(region) >= 0) {
       // if a valid region
+      let apiReference = this;
       promise = new Promise(function (resolve, reject) {
-        Api.getApiData(url, indexes).then(
+        apiReference.getApiData(url, indexes).then(
           function (data) {
             resolve(data)
           },

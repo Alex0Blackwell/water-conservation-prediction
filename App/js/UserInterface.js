@@ -42,6 +42,18 @@ class UserInterface {
     this.api = new Api('http://127.0.0.1:5000/');  // default for local Flask
   }
 
+  setStartDate(newStartDate) {
+    this.startDate = newStartDate;
+  }
+
+  setEndDate(newEndDate) {
+    this.endDate = newEndDate;
+  }
+
+  setRegion(newRegion) {
+    this.region = newRegion;
+  }
+
   /**
    * Capitalize the first letter of a string.
    * 
@@ -110,13 +122,24 @@ class UserInterface {
   }
 
   /**
+   * If we do not reset the graph hidden data points from previous
+   * graphs are still selectable. 
+   */
+  resetGraph() {
+    document.getElementById('graph').remove();
+    let graphContainer = document.getElementById('graphContainer');
+    let canvas = document.createElement('canvas');
+    canvas.id = 'graph'
+    canvas.className = 'graph';
+    graphContainer.appendChild(canvas);
+  }
+
+  /**
    * Creates a graph of water consumption over time with the location
    * dropdown menu, and the time span slider.
    */
   async setGraph() {
-    // TODO: get location and time span data from client side
-
-    this.setupMultiColorLine();
+    this.setupMultiColorLine(70);
     let regionData = await this.api.getWaterData(this.startDate, this.endDate, this.region);
 
     let times = []
@@ -127,9 +150,10 @@ class UserInterface {
     })
 
     // now graph!
+    this.resetGraph();
     const ctx = document.getElementById('graph').getContext('2d')
 
-    const graph = new Chart(ctx, {
+    new Chart(ctx, {
       type: 'multiColourLine',
       data: {
         labels: times,

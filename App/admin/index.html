@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+      Water You Doing, New York? | JAKK Team | Borealis AI Let's Solve It
+    </title>
+    <!-- Bootstrap 4 -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous">
+    <link rel="stylesheet" href="./css/main.css">
+  </head>
+  <body>
+    <div class="container">
+      <div class="row">
+        <header class="col-12">
+          <h1 class="heading1">Water You Doing, New York?</h1>
+          <p class="subtitle">By: JAKK Team</p>
+        </header>
+      </div>
+      <main>
+        <div class="mt-40">
+          <h3>Admin Queries:</h3>
+        </div>
+        <div class="row">
+          <div class="col-md-6 col-12">
+            <b>Compare Two Boroughs</b>
+            <div class="row">
+              <div class="col-6 control-group">
+                <label for="city">Borough 1</label>
+                <select name="city" id="city" class="select">
+                  <option></option>
+                  <option value="Queens">Queens</option>
+                  <option value="Brooklyn">Brooklyn</option>
+                  <option value="Bronx">Bronx</option>
+                  <option value="Manhattan">Manhattan</option>
+                  <option value="Staten Island">Staten Island</option>
+                  <option value="FHA">FHA</option>
+                </select>
+              </div>
+              <div class="col-6 control-group">
+                <label for="city">Borough 2</label>
+                <select name="city" id="city" class="select">
+                  <option></option>
+                  <option value="Queens">Queens</option>
+                  <option value="Brooklyn">Brooklyn</option>
+                  <option value="Bronx">Bronx</option>
+                  <option value="Manhattan">Manhattan</option>
+                  <option value="Staten Island">Staten Island</option>
+                  <option value="FHA">FHA</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 col-12">
+            <b>Update Borough Name</b>
+            <div class="row">
+              <div class="col-6 control-group">
+                <label for="city">Old Borough Name</label>
+                <select name="city" id="city" class="select">
+                  <option></option>
+                  <option value="Queens">Queens</option>
+                  <option value="Brooklyn">Brooklyn</option>
+                  <option value="Bronx">Bronx</option>
+                  <option value="Manhattan">Manhattan</option>
+                  <option value="Staten Island">Staten Island</option>
+                  <option value="FHA">FHA</option>
+                </select>
+              </div>
+              <div class="col-6 control-group">
+                <label>New Borough Name</label>
+                <input id="new-borough-name" class="select text" type="text">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6 col-12">
+            <b>Delete City</b>
+            <div class="row">
+              <div class="col-6 control-group">
+                <label for="city">City</label>
+                <select name="city" id="city" class="select">
+                  <option></option>
+                  <option value="New York">New York</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 col-12">
+            <b>Funded by Federal or Section 8</b>
+            <div class="row">
+              <div class="col-6 control-group">
+                <label for="city">City</label>
+                <select name="city" id="city" class="select">
+                  <option></option>
+                  <option value="New York">New York</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <h3>Output:</h3>
+          <button class="btn btn-secondary">Run Query:</button>
+          <div id="output">
+            <p id="output-text">Result displayed here...</p>
+          </div>
+        </div>
+      </main>
+    </div>
+  </body>
+</html>

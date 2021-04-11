@@ -7,6 +7,8 @@ admin_api = Blueprint('admin_api', __name__)
 
 @admin_api.route("/admin/join", methods=['GET'])
 def join():
+    # Format is /admin/join?borough1=XXXX&borough2=XXXX
+    # Returns borough1 and borough2 alongside their consumptions based on the same month respectively
     borough1 = request.args['borough1']
     borough2 = request.args['borough2']
     
@@ -21,5 +23,23 @@ def join():
     result = cursor.fetchall()
 
     db.connection.close()
+    return jsonify(result)
 
+@admin_api.route("/admin/groupby", methods=['GET'])
+def aggregationGroupBy():
+    # Format is admin/groupby?largerthan=XXXX
+    # Returns boroughs and their sum(consumption) larger than XXXX
+    # largerThan = int(request.args['largerthan'])
+
+    db = Database.fromconfig()
+    cursor = db.connection.cursor()
+    query = ("SELECT borough, CAST(sum(consumption) AS float) FROM jakk.BoroughWater " 
+                # "Group by borough having sum(consumption) > %s")
+                "Group by borough having sum(consumption) > 1000000")
+
+    # cursor.execute(query, (largerThan,))
+    cursor.execute(query)
+    result = cursor.fetchall()
+
+    db.connection.close()
     return jsonify(result)

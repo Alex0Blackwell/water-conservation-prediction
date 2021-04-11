@@ -8,7 +8,8 @@
   --grey: #7d8dad;
   --light-grey: #c2cce0;
 
-  --gutter: 2.5em 3em;
+  --gutter-desktop: 2.5em 3em;
+  --gutter-mobile: 1.5em 2em;
 }
 
 *,
@@ -51,8 +52,14 @@ body {
 }
 
 .container {
-  padding: var(--gutter);
+  padding: var(--gutter-mobile);
   height: 100%;
+}
+
+@media screen and (min-width: 830px) {
+  .container {
+    padding: var(--gutter-desktop);
+  }
 }
 
 header {

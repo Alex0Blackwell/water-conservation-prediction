@@ -54,12 +54,10 @@ class UserInterface {
     this.region = newRegion;
   }
 
-  setStartDateDisplay(value) {
-    document.querySelector(".date-range-display.start-date").textContent = value
-  }
-
-  setEndDateDisplay(value) {
-    document.querySelector(".date-range-display.end-date").textContent = value
+  getNewDate(value) {
+    const newDate = new Date('2013-01-01')
+    newDate.setDate(newDate.getDate() + parseInt(value))
+    return newDate
   }
 
   /**
@@ -200,6 +198,7 @@ class UserInterface {
     const setLeftValue = () => {
       const min = parseInt(inputLeft.min)
       const max = parseInt(inputLeft.max)
+      const newDate = this.getNewDate(inputLeft.value)
 
       inputLeft.value = Math.min(parseInt(inputLeft.value), parseInt(inputRight.value) - 1)
 
@@ -207,12 +206,14 @@ class UserInterface {
 
       thumbLeft.style.left = percent + "%"
       range.style.left = percent + "%"
+      startDateDisplay.textContent = newDate.toDateString()
     }
     setLeftValue();
 
     const setRightValue = () => {
       const min = parseInt(inputRight.min)
       const max = parseInt(inputRight.max)
+      const newDate = this.getNewDate(inputRight.value)
 
       inputRight.value = Math.max(parseInt(inputRight.value), parseInt(inputLeft.value) + 1)
       
@@ -220,6 +221,7 @@ class UserInterface {
       
       thumbRight.style.right = (100 - percent) + "%"
       range.style.right = (100 - percent) + "%"
+      endDateDisplay.textContent = newDate.toDateString()
     }
     setRightValue()
 

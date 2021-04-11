@@ -42,11 +42,44 @@ class UserInterface {
     this.api = new Api('http://127.0.0.1:5000/');  // default for local Flask
   }
 
+  setStartDate(newStartDate) {
+    this.startDate = newStartDate;
+  }
+
+  setEndDate(newEndDate) {
+    this.endDate = newEndDate;
+  }
+
+  setRegion(newRegion) {
+    this.region = newRegion;
+  }
+
+  /**
+   * Capitalize the first letter of a string.
+   * 
+   * @param {String} str  the string to be capitalized
+   * @returns the first letter capitalized
+   */
+  capitalize(str) {
+    return str.charAt(0).toUpperCase() + str.slice(1);
+  }
+
   /**
    * Set the location dropdown menu to include regions supported
    * in the database.
    */
-  async setLocationDropdown() {  }
+  async setLocationDropdown() {
+    let regions = await this.api.getRegions();
+
+    let dropdown = document.getElementById('regionDropdown');
+    let regionToAdd;
+
+    for(let i = 0; i < regions.length; ++i) {
+      regionToAdd = document.createElement('option');
+      regionToAdd.text = regions[i].split(' ').map(this.capitalize).join(' ');
+      dropdown.add(regionToAdd);
+    }
+  }
 
   /**
    * Setup custom "multiColourLine" type to show known and
@@ -89,13 +122,24 @@ class UserInterface {
   }
 
   /**
+   * If we do not reset the graph hidden data points from previous
+   * graphs are still selectable. 
+   */
+  resetGraph() {
+    document.getElementById('graph').remove();
+    let graphContainer = document.getElementById('graphContainer');
+    let canvas = document.createElement('canvas');
+    canvas.id = 'graph'
+    canvas.className = 'graph';
+    graphContainer.appendChild(canvas);
+  }
+
+  /**
    * Creates a graph of water consumption over time with the location
    * dropdown menu, and the time span slider.
    */
   async setGraph() {
-    // TODO: get location and time span data from client side
-
-    this.setupMultiColorLine();
+    this.setupMultiColorLine(70);
     let regionData = await this.api.getWaterData(this.startDate, this.endDate, this.region);
 
     let times = []
@@ -106,9 +150,10 @@ class UserInterface {
     })
 
     // now graph!
+    this.resetGraph();
     const ctx = document.getElementById('graph').getContext('2d')
 
-    const graph = new Chart(ctx, {
+    new Chart(ctx, {
       type: 'multiColourLine',
       data: {
         labels: times,
@@ -131,5 +176,18 @@ class UserInterface {
         maintainAspectRatio: false,
       },
     })
+  }
+
+  /**
+   * Set the stats (consumption and pricing) to reflect the current
+   * location and time.
+   */
+  setStats() {
+    document.getElementById('avg-consume').innerHTML = this.api.getAvgConsumption();
+    document.getElementById('max-consume').innerHTML = this.api.getMaxConsumption();
+    document.getElementById('min-consume').innerHTML = this.api.getMinConsumption();
+    document.getElementById('avg-price').innerHTML = '$'+this.api.getAvgPrice();
+    document.getElementById('max-price').innerHTML = '$'+this.api.getMaxPrice();
+    document.getElementById('min-price').innerHTML = '$'+this.api.getMinPrice();
   }
 }

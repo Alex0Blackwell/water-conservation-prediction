@@ -1,9 +1,21 @@
+let ui = new UserInterface('2013-01-01', '2020-01-01', 'new york');
+
+async function setUserInterface() {
+  await ui.setGraph();
+  ui.setStats();
+}
+
 /**
  * Called when the website is navigated to.
  */
-async function onStart() {
-  let ui = new UserInterface('2015-01-01', '2019-01-01', 'queens');
-  await ui.setGraph();
+function onStart() {
+  ui.setLocationDropdown();
+  setUserInterface();
+}
+
+function regionSelected(region) {
+  ui.setRegion(region.toLowerCase());
+  setUserInterface();
 }
 
 onStart()

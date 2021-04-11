@@ -26,14 +26,7 @@
         <div class="row">
           <div class="col-md-3 col-12 control-group">
             <label for="city">Location</label>
-            <select name="city" id="city" class="select">
-              <option value="New York">New York</option>
-              <option value="Queens">Queens</option>
-              <option value="Brooklyn">Brooklyn</option>
-              <option value="Bronx">Bronx</option>
-              <option value="Manhattan">Manhattan</option>
-              <option value="Staten Island">Staten Island</option>
-              <option value="FHA">FHA</option>
+            <select onchange="regionSelected(this.value)" name="city" id="regionDropdown" class="select">
             </select>
           </div>
           <div class="col-md-9 col-12 control-group slider">
@@ -51,7 +44,7 @@
         </div>
         <!-- Consumption and pricing -->
         <div class="row mt-40">
-          <!-- Consumption (with mock data) -->
+          <!-- Consumption -->
           <div class="col-md-6 col-12">
             <div class="row">
               <h5>Consumption (Hundred Cubic Feet)</h5>
@@ -68,18 +61,18 @@
               </div>
             </div>
             <div class="row">
-              <div class="col-4">
-                <b id="avg-consume">543</b>
+              <div class="col">
+                <b id="avg-consume"></b>
               </div>
-              <div class="col-4">
-                <b id="max-consume">1380</b>
+              <div class="col">
+                <b id="max-consume"></b>
               </div>
-              <div class="col-4">
-                <b id="min-consume">213</b>
+              <div class="col">
+                <b id="min-consume"></b>
               </div>
             </div>
           </div>
-          <!-- Pricing (with mock data) -->
+          <!-- Pricing -->
           <div class="col-md-6 col-12">
             <div class="row">
               <h5>Pricing ($USD)</h5>
@@ -96,19 +89,21 @@
               </div>
             </div>
             <div class="row">
-              <div class="col-4">
-                <b id="avg-price">$10321.12</b>
+              <div class="col">
+                <b id="avg-price"></b>
               </div>
-              <div class="col-4">
-                <b id="max-price">$25506.32</b>
+              <div class="col">
+                <b id="max-price"></b>
               </div>
-              <div class="col-4">
-                <b id="min-price">$3839.69</b>
+              <div class="col">
+                <b id="min-price"></b>
               </div>
             </div>
           </div>
         </div>
-        <canvas id="graph" class="graph"></canvas>
+        <div id="graphContainer">
+          <canvas id="graph" class="graph"></canvas>
+        </div>
       </main>
     </div>
   </body>

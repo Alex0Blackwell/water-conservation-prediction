@@ -6,6 +6,12 @@ class Api {
   cities = [];
   boroughs = [];
   regions = [];
+  avgConsume = 0;
+  maxConsume = 0;
+  minConsume = 0;
+  avgPrice = 0;
+  maxPrice = 0;
+  minPrice = 0;
 
   /**
    * Creates an Api object with the base url referencing the
@@ -26,7 +32,7 @@ class Api {
    * @param {int} indexes a list of requested indexes [optional]
    * @returns a 2D-array of data from the requested endpoint
    */
-  static getApiData(url, indexes = [0]) {
+  getApiData(url, indexes = [0]) {
     return new Promise(function (myResolve, myReject) {
       let xhr = new XMLHttpRequest()
       xhr.open('GET', url)
@@ -64,9 +70,10 @@ class Api {
    */
   async getRegionHelper(region) {
     let url = this.baseUrl + `api/${region}/all`
+    let apiReference = this;
 
     let promise = new Promise(function (resolve, reject) {
-      Api.getApiData(url).then(
+      apiReference.getApiData(url).then(
         function (data) {
           let res = []
 
@@ -143,43 +150,61 @@ class Api {
   async updateFieldsHelper() {
     // we can utilize concurrency here!
     await Promise.all([
-      await this.getCities(),
-      await this.getBoroughs(),
-      await this.getRegions()
+      this.getCities(),
+      this.getBoroughs(),
+      this.getRegions()
     ]);
   }
 
+
   /**
-   * Get the Borough water or City water of a given time-frame.
-   *
+   * Internal method to get a region's data in a given time-frame.
+   * Specify data to be "stats" to get the region's stats.
+   * 
    * Cities: "new york"
    * Boroughs: "bronx", "brooklyn", "fha", "manhattan", "queens", "staten island"
    *
    * @param {string} startDate  the first date "YYYY-MM-DD"
    * @param {string} endDate  the last date "YYYY-MM-DD"
    * @param {string} region the region, which may be a city or borough
+   * @param {string} data "stats" to get stats [optional]
+   * @returns the region's stats or water data
    */
-  async getWaterData(startDate, endDate, region) {
+  async getRegionData(startDate, endDate, region, data = null) {
     await this.updateFieldsHelper();
 
     let promise = null;
     let url = this.baseUrl + 'api/';
     let indexes = [0];
 
+    let appendUrl = '';
+    let regionUrl = '';
     if (this.cities.indexOf(region) >= 0) {
       // a city is being requested
-      url += `citywater?intervalStart=${startDate}&intervalEnd=${endDate}`
-      indexes = [3, 5]
+      regionUrl = 'citywater';
+      appendUrl = `intervalStart=${startDate}&intervalEnd=${endDate}`;
+      indexes = [3, 5];
     } else if (this.boroughs.indexOf(region) >= 0) {
       // a borough is being requested
-      url += `boroughwater?name=${region}&intervalStart=${startDate}&intervalEnd=${endDate}`
-      indexes = [4, 6]
+      regionUrl = 'boroughwater';
+      appendUrl = `name=${region}&intervalStart=${startDate}&intervalEnd=${endDate}`;
+      indexes = [4, 6];
     }
+
+    let specifier = '';
+    switch(data) {
+      case 'stats':
+        specifier = '/stats';
+        indexes = [0,1,2,3,4,5];
+        break;
+    }
+    url += `${regionUrl}${specifier}?${appendUrl}`;
 
     if (this.regions.indexOf(region) >= 0) {
       // if a valid region
+      let apiReference = this;
       promise = new Promise(function (resolve, reject) {
-        Api.getApiData(url, indexes).then(
+        apiReference.getApiData(url, indexes).then(
           function (data) {
             resolve(data)
           },
@@ -194,80 +219,60 @@ class Api {
   }
 
   /**
-   * Get the average water consumption of a city or borough in
-   * a given time-frame.
-   * 
+   * Get the Borough water or City water of a given time-frame.
+   *
    * Cities: "new york"
    * Boroughs: "bronx", "brooklyn", "fha", "manhattan", "queens", "staten island"
    *
    * @param {string} startDate  the first date "YYYY-MM-DD"
    * @param {string} endDate  the last date "YYYY-MM-DD"
-   * @param {string} region the region
+   * @param {string} region the region, which may be a city or borough
    */
-  async getAvgConsumption(startDate, endDate, region) {  }
+  async getWaterData(startDate, endDate, region) {
+    let stats = await this.getRegionData(startDate, endDate, region, 'stats');
+    stats = stats[0];
+    this.avgConsume = stats[0];
+    this.maxConsume = stats[1];
+    this.minConsume = stats[2];
+    this.avgPrice = stats[3];
+    this.maxPrice = stats[4];
+    this.minPrice = stats[5];
+    return await this.getRegionData(startDate, endDate, region); 
+  }
+
+  /**
+   * Get the average water consumption of a city or borough in
+   * a given time-frame.
+   */
+  getAvgConsumption() { return this.avgConsume; }
 
   /**
    * Get the minimum water consumption of a city or borough in
    * a given time-frame.
-   * 
-   * Cities: "new york"
-   * Boroughs: "bronx", "brooklyn", "fha", "manhattan", "queens", "staten island"
-   *
-   * @param {string} startDate  the first date "YYYY-MM-DD"
-   * @param {string} endDate  the last date "YYYY-MM-DD"
-   * @param {string} region the region
    */
-  async getMinConsumption(startDate, endDate, region) {  }
+  getMinConsumption() { return this.minConsume }
 
   /**
    * Get the maximum water consumption of a city or borough in
    * a given time-frame.
-   * 
-   * Cities: "new york"
-   * Boroughs: "bronx", "brooklyn", "fha", "manhattan", "queens", "staten island"
-   *
-   * @param {string} startDate  the first date "YYYY-MM-DD"
-   * @param {string} endDate  the last date "YYYY-MM-DD"
-   * @param {string} region the region
    */
-  async getMaxConsumption(startDate, endDate, region) {  }
+  getMaxConsumption() { return this.maxConsume }
 
   /**
    * Get the average price a city or borough paid for 
    * their water consumption in a given time-frame.
-   * 
-   * Cities: "new york"
-   * Boroughs: "bronx", "brooklyn", "fha", "manhattan", "queens", "staten island"
-   *
-   * @param {string} startDate  the first date "YYYY-MM-DD"
-   * @param {string} endDate  the last date "YYYY-MM-DD"
-   * @param {string} region the region
    */
-  async getAvgPrice(startDate, endDate, region) {  }
+  getAvgPrice() { return this.avgPrice }
 
   /**
    * Get the minimum price a city or borough paid for 
    * their water consumption in a given time-frame.
-   * 
-   * Cities: "new york"
-   * Boroughs: "bronx", "brooklyn", "fha", "manhattan", "queens", "staten island"
-   *
-   * @param {string} startDate  the first date "YYYY-MM-DD"
-   * @param {string} endDate  the last date "YYYY-MM-DD"
-   * @param {string} region the region
    */
-  async getMinPrice(startDate, endDate, region) {  }
+  getMinPrice() { return this.minPrice }
 
   /**
    * Get the maximum price a city or borough paid for 
    * their water consumption in a given time-frame.
-   * 
-   *    * Cities: "new york"
-   * Boroughs: "bronx", "brooklyn", "fha", "manhattan", "queens", "staten island"
-   *
-   * @param {string} startDate  the first date "YYYY-MM-DD"
-   * @param {string} endDate  the last date "YYYY-MM-DD"
-   * @param {string} region the region
    */
-  async getMaxPrice(startDate, endDate, region) {  }
+  getMaxPrice() { return this.maxPrice }
 }

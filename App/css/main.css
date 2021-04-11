@@ -111,7 +111,7 @@ header .subtitle {
 }
 
 .graph {
-  max-height: 500px;
+  height: 500px;
 }
 
 .mt-40 {

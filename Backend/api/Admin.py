@@ -29,17 +29,35 @@ def join():
 def aggregationGroupBy():
     # Format is admin/groupby?largerthan=XXXX
     # Returns boroughs and their sum(consumption) larger than XXXX
-    # largerThan = int(request.args['largerthan'])
+    largerThan = int(request.args['largerthan'])
 
     db = Database.fromconfig()
     cursor = db.connection.cursor()
     query = ("SELECT borough, CAST(sum(consumption) AS float) FROM jakk.BoroughWater " 
-                # "Group by borough having sum(consumption) > %s")
-                "Group by borough having sum(consumption) > 1000000")
+                "Group by borough having sum(consumption) > %s")
+                # "Group by borough having sum(consumption) > 1000000")
 
-    # cursor.execute(query, (largerThan,))
-    cursor.execute(query)
+    cursor.execute(query, (largerThan,))
+    # cursor.execute(query)
     result = cursor.fetchall()
 
     db.connection.close()
     return jsonify(result)
+
+@admin_api.route("/admin/deletecity", methods=['GET'])
+def kingkong():
+    # Format is admin/deletecity?city=XXXX
+    city = request.args['city']
+
+    db = Database.fromconfig()
+    cursor = db.connection.cursor()
+    query = ("DELETE FROM jakk.City WHERE City = %s")
+
+    cursor.execute(query, (city,))
+    print(cursor.statement)
+    db.connection.commit()
+
+    db.connection.close()
+    return jsonify(["Number of rows affected", cursor.rowcount])
+
+

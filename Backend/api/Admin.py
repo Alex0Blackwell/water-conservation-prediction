@@ -60,4 +60,19 @@ def kingkong():
     db.connection.close()
     return jsonify(["Number of rows affected", cursor.rowcount])
 
+@admin_api.route("/admin/updateborough", methods=['GET'])
+def updateBorough():
+    # Format is admin/updateborough?target=XXXX&result=XXXX
+    target = request.args['target']
+    result = request.args['result']
+
+    db = Database.fromconfig()
+    cursor = db.connection.cursor()
+    query = ("UPDATE jakk.Borough SET Borough = %s WHERE Borough = %s")
+
+    cursor.execute(query, (result, target))
+    db.connection.commit()
+
+    db.connection.close()
+    return jsonify(["Number of rows affected", cursor.rowcount])
 

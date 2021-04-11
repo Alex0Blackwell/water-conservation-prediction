@@ -54,6 +54,12 @@ class UserInterface {
     this.region = newRegion;
   }
 
+  getNewDate(value) {
+    const newDate = new Date('2013-01-01')
+    newDate.setDate(newDate.getDate() + parseInt(value))
+    return newDate
+  }
+
   /**
    * Capitalize the first letter of a string.
    * 
@@ -176,6 +182,51 @@ class UserInterface {
         maintainAspectRatio: false,
       },
     })
+  }
+
+  setDoubleSlider() {
+    const inputLeft = document.getElementById("slider-left")
+    const inputRight = document.getElementById("slider-right")
+
+    const thumbLeft = document.querySelector(".slider > .thumb.slider-left")
+    const thumbRight = document.querySelector(".slider > .thumb.slider-right")
+    const range = document.querySelector(".slider > .range")
+
+    const startDateDisplay = document.querySelector(".date-range-display.start-date")
+    const endDateDisplay = document.querySelector(".date-range-display.end-date")
+
+    const setLeftValue = () => {
+      const min = parseInt(inputLeft.min)
+      const max = parseInt(inputLeft.max)
+      const newDate = this.getNewDate(inputLeft.value)
+
+      inputLeft.value = Math.min(parseInt(inputLeft.value), parseInt(inputRight.value) - 1)
+
+      const percent = ((inputLeft.value - min) / (max - min)) * 100
+
+      thumbLeft.style.left = percent + "%"
+      range.style.left = percent + "%"
+      startDateDisplay.textContent = newDate.toDateString()
+    }
+    setLeftValue();
+
+    const setRightValue = () => {
+      const min = parseInt(inputRight.min)
+      const max = parseInt(inputRight.max)
+      const newDate = this.getNewDate(inputRight.value)
+
+      inputRight.value = Math.max(parseInt(inputRight.value), parseInt(inputLeft.value) + 1)
+      
+      const percent = ((inputRight.value - min) / (max - min)) * 100
+      
+      thumbRight.style.right = (100 - percent) + "%"
+      range.style.right = (100 - percent) + "%"
+      endDateDisplay.textContent = newDate.toDateString()
+    }
+    setRightValue()
+
+    inputLeft.addEventListener("input", setLeftValue)
+    inputRight.addEventListener("input", setRightValue)
   }
 
   /**

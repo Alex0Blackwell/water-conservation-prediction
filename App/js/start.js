@@ -10,12 +10,25 @@ async function setUserInterface() {
  */
 function onStart() {
   ui.setLocationDropdown();
+  ui.setDoubleSlider();
   setUserInterface();
 }
 
 function regionSelected(region) {
   ui.setRegion(region.toLowerCase());
   setUserInterface();
+}
+
+function startDateSelected(value) {
+  const newDate = ui.getNewDate(value)
+  ui.setStartDate(newDate.toJSON().slice(0, 10))
+  setUserInterface()
+}
+
+function endDateSelected(value) {
+  const newDate = ui.getNewDate(value)
+  ui.setEndDate(newDate.toJSON().slice(0, 10))
+  setUserInterface()
 }
 
 onStart()

@@ -8,7 +8,7 @@ def index():
     # Format is /borough?name=XXXX
     # All arguments are mandatory
     name = request.args['name']
-
+    
     db = Database.fromconfig()
     cursor = db.connection.cursor()
     query = ("SELECT * FROM jakk.Borough WHERE borough = %s")

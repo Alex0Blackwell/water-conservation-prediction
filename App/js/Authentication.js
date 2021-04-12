@@ -38,6 +38,7 @@
      * logout() can be called and then validateLogin() immediately after to redirect or redirecting to login works the same
      */
     logout(){
+      this.api.authLogout();
       localStorage.clear();
     }
   }

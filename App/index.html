@@ -29,17 +29,35 @@
             <select onchange="regionSelected(this.value)" name="city" id="regionDropdown" class="select">
             </select>
           </div>
-          <div class="col-md-9 col-12 control-group slider">
-            <label for="timeSpan">Time Span</label>
-            <input
-              type="range"
-              name="timeSpan"
-              id="timeSpan"
-              class="slider"
-              min="1"
-              max="100"
-              value="1"
-            />
+          <div class="col-md-9 col-12 control-group">
+            <label for="timeSpan">Time Span (<span class="date-range-display start-date"></span>, <span class="date-range-display end-date"></span>)</label>
+            <div class="double-slider">
+              <input
+                type="range"
+                name="timeSpan"
+                id="slider-left"
+                min="0"
+                max="3000"
+                value="0"
+                onchange="startDateSelected(this.value)"
+              />
+              <input
+                type="range"
+                name="timeSpan"
+                id="slider-right"
+                min="0"
+                max="3000"
+                value="3000"
+                onchange="endDateSelected(this.value)"
+              />
+
+              <div class="slider">
+                <div class="track"></div>
+                <div class="range"></div>
+                <div class="thumb slider-left"></div>
+                <div class="thumb slider-right"></div>
+              </div>
+            </div>
           </div>
         </div>
         <!-- Consumption and pricing -->

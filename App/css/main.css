@@ -8,7 +8,8 @@
   --grey: #7d8dad;
   --light-grey: #c2cce0;
 
-  --gutter: 2.5em 3em;
+  --gutter-desktop: 2.5em 3em;
+  --gutter-mobile: 1.5em 2em;
 }
 
 *,
@@ -51,8 +52,14 @@ body {
 }
 
 .container {
-  padding: var(--gutter);
+  padding: var(--gutter-mobile);
   height: 100%;
+}
+
+@media screen and (min-width: 830px) {
+  .container {
+    padding: var(--gutter-desktop);
+  }
 }
 
 header {
@@ -88,26 +95,78 @@ header .subtitle {
   border-radius: 5px;
 }
 
-.control-group.slider {
-  width: 100%;
+.double-slider {
+  position: relative;
 }
 
-.control-group .slider {
-  -webkit-appearance: none;
-  width: 100%;
-  border-radius: 1em;
+.slider {
+  position: relative;
+  z-index: 1;
+  height: 10px;
+  margin: 0 15px;
+}
+
+.slider > .track {
+  position: absolute;
+  z-index: 1;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  border-radius: 5px;
   background-color: var(--light-grey);
-  outline: none;
-  height: 0.5em;
 }
 
-.control-group .slider::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  appearance: none;
-  height: 1.5em;
-  width: 1.5em;
+.slider > .range {
+  position: absolute;
+  z-index: 2;
+  left: 25%;
+	right: 25%;
+	top: 0;
+	bottom: 0;
+	border-radius: 5px;
   background-color: var(--primary-color);
-  border-radius: 50%;
+}
+
+.slider > .thumb {
+  position: absolute;
+	z-index: 3;
+	width: 25px;
+	height: 25px;
+	background-color: var(--primary-color);
+	border-radius: 50%;
+	box-shadow: 0 0 0 0 rgba(98,0,238,.1);
+	transition: box-shadow .3s ease-in-out;
+}
+
+.slider > .thumb.slider-left {
+	left: 25%;
+	transform: translate(-12px, -7px);
+}
+
+.slider > .thumb.slider-right {
+	right: 25%;
+	transform: translate(12px, -7px);
+}
+
+input[type=range] {
+	position: absolute;
+	pointer-events: none;
+	-webkit-appearance: none;
+	z-index: 2;
+	height: 10px;
+	width: 100%;
+	opacity: 0;
+}
+
+input[type=range]::-webkit-slider-thumb {
+	pointer-events: all;
+	width: 30px;
+	height: 30px;
+	border-radius: 0;
+	border: 0 none;
+	background-color: rgba(256,0,0,.3);
+	-webkit-appearance: none;
 }
 
 .graph {

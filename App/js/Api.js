@@ -29,7 +29,7 @@ class Api {
    * @param {string} username used for Username login credential
    * @param {string} password used for Password login credential
    */
-  async authLogin(username, password){
+   authLogin(username, password){
     let url = this.baseUrl + `api/auth/login?`
     let params = `username=${username}&password=${password}`
     let promise = new Promise(function (resolve, reject) {

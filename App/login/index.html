@@ -1,0 +1,23 @@
+<html>
+<head>
+  <link rel="stylesheet" href="css/login.css">
+  <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Sign in</title>
+</head>
+
+<body>
+  <div id="main">
+    <p id="sign-in-title" align="center">Admin sign in</p>
+    <form id="submissionform" class="form1">
+      <input id="username" type="text" name="username" align="center" placeholder="username">
+      <input id="pass" type="password" name="password" align="center" placeholder="password">
+      <a id="submit-button" align="center" onclick="loginSubmit()">Sign in</a>
+      <p id="incorrect-submit" align="center">Incorrect username or password</p>
+      <p id="not-admin-submit" align="center"><a href="#" onclick="redirectDefaultPage()">Not an admin?</p>
+    </div>
+</body>
+<script src="../js/Api.js"></script>
+<script src="../js/Authentication.js"></script>
+<script src="../js/login.js"></script>
+</html>

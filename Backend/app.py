@@ -1,7 +1,9 @@
 from flask import Flask, request, render_template
+from flask.helpers import url_for
 from flask_cors import CORS, cross_origin
 from mysql.connector import connect
 from connection import Database
+from api.Authentication import auth_api
 from api.Borough import borough_api
 from api.BoroughWater import boroughwater_api
 from api.City import city_api
@@ -16,6 +18,7 @@ app = Flask(__name__)
 CORS(app)
 
 # registers api routing
+app.register_blueprint(auth_api, url_prefix='/api')
 app.register_blueprint(borough_api, url_prefix='/api')
 app.register_blueprint(boroughwater_api, url_prefix='/api')
 app.register_blueprint(city_api, url_prefix='/api')

@@ -1,13 +1,14 @@
 let auth = new Authentication();
 
 function loginSubmit(){
-    let submissionform = document.getElementById('submissionform');
-    auth.authenticate(submissionform.username.value, submissionform.password.value).then(function(response){
+    let username = document.getElementById('username').value;
+    let password = document.getElementById('pass').value;
+    auth.authenticate(username, password).then(function(response){
         let incorrectPrompt = document.getElementById("incorrect-submit")
         console.log(response);
         if(response){
-            localStorage.setItem("username", submissionform.username.value);
-            localStorage.setItem("password", submissionform.password.value);
+            localStorage.setItem("username", username);
+            localStorage.setItem("password", password);
             incorrectPrompt.style.display = "none"; 
             window.location.replace('/admin');
         } else {

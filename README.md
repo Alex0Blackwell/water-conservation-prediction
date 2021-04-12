@@ -35,4 +35,4 @@ Now activate the virtual environment:
 
 **Unix or MacOS**
 
-    source env/bin/activat
+    source env/bin/activate

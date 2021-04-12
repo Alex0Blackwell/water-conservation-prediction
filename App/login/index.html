@@ -1,21 +1,41 @@
-<html>
+<html lang="en">
 <head>
-  <link rel="stylesheet" href="css/login.css">
-  <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Sign in</title>
+  <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
+  <title>
+      Water You Doing, New York? | JAKK Team | Borealis AI Let's Solve It
+  </title>
+    <!-- Bootstrap 4 -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous">
+  <link rel="stylesheet" href="../css/main.css">
+  <link rel="stylesheet" href="css/login.css">
 </head>
-
 <body>
-  <div id="main">
-    <p id="sign-in-title" align="center">Admin sign in</p>
-    <form id="submissionform" class="form1">
-      <input id="username" type="text" name="username" align="center" placeholder="username">
-      <input id="pass" type="password" name="password" align="center" placeholder="password">
-      <a id="submit-button" align="center" onclick="loginSubmit()">Sign in</a>
-      <p id="incorrect-submit" align="center">Incorrect username or password</p>
-      <p id="not-admin-submit" align="center"><a href="#" onclick="redirectDefaultPage()">Not an admin?</p>
+  <div class="container">
+    <div class="row">
+      <header class="col-12">
+        <h1 class="heading1">Water You Doing, New York?</h1>
+        <p class="subtitle">By: JAKK Team</p>
+      </header>
     </div>
+    <main>
+      <div class="backdrop">
+        <p id="sign-in-title">Admin sign in</p>
+        <form id="submissionform" class="form1">
+          <input id="username" type="text" name="username" placeholder="username">
+          <input id="pass" type="password" name="password" placeholder="password">
+          <br>
+          <button id="submit-button" onclick="loginSubmit()">Sign in</button>
+          <p id="incorrect-submit">Incorrect username or password</p>
+          <p id="not-admin-submit"><a href="#" onclick="redirectDefaultPage()">Not an admin?</p>
+      </div>
+    </main>
+  </div>
 </body>
 <script src="../js/Api.js"></script>
 <script src="../js/Authentication.js"></script>

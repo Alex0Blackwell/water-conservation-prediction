@@ -3,10 +3,11 @@ body {
     font-family: 'Ubuntu', sans-serif;
 }
 
-#main {
+.backdrop {
     background-color: #FFFFFF;
-    width: 400px;
-    height: 400px;
+    max-width: 500px;
+    padding: 10px;
+    text-align: center;
     margin: 7em auto;
     border-radius: 1.5em;
     box-shadow: 0px 11px 35px 2px rgba(0, 0, 0, 0.14);
@@ -20,52 +21,30 @@ body {
     font-size: 23px;
 }
 
-#username {
-width: 76%;
-color: rgb(38, 50, 56);
-font-weight: 700;
-font-size: 14px;
-letter-spacing: 1px;
-background: rgba(136, 126, 126, 0.04);
-padding: 10px 20px;
-border: none;
-border-radius: 20px;
-outline: none;
-box-sizing: border-box;
-border: 2px solid rgba(0, 0, 0, 0.02);
-margin-bottom: 30px;
-margin-left: 46px;
-text-align: center;
-font-family: 'Ubuntu', sans-serif;
-}
-
 form.form1 {
     padding-top: 20px;
 }
 
-#pass {
-width: 76%;
-color: rgb(38, 50, 56);
-font-weight: 700;
-font-size: 14px;
-letter-spacing: 1px;
-background: rgba(136, 126, 126, 0.04);
-padding: 10px 20px;
-border: none;
-border-radius: 20px;
-outline: none;
-box-sizing: border-box;
-border: 2px solid rgba(0, 0, 0, 0.02);
-margin-bottom: 50px;
-margin-left: 46px;
-text-align: center;
-font-family: 'Ubuntu', sans-serif;
+input {
+    width: 90%;
+    color: rgb(38, 50, 56);
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: 1px;
+    background: rgba(136, 126, 126, 0.04);
+    padding: 10px 20px;
+    border: none;
+    border-radius: 20px;
+    outline: none;
+    box-sizing: border-box;
+    border: 2px solid rgba(0, 0, 0, 0.02);
+    margin-bottom: 25px;
+    text-align: center;
+    font-family: 'Ubuntu', sans-serif;
 }
-
 
 #username :focus, .pass:focus {
     border: 2px solid rgba(0, 0, 0, 0.18) !important;
-    
 }
 
 #submit-button {
@@ -79,7 +58,6 @@ font-family: 'Ubuntu', sans-serif;
     padding-bottom: 10px;
     padding-top: 10px;
     font-family: 'Ubuntu', sans-serif;
-    margin-left: 35%;
     font-size: 13px;
 }
 
@@ -97,10 +75,4 @@ font-family: 'Ubuntu', sans-serif;
 a {
     color: #4c7bd3;
     text-decoration: none
-}
-
-@media (max-width: 600px) {
-    .main {
-        border-radius: 0px;
-    }
 }

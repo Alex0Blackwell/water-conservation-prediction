@@ -25,6 +25,22 @@ def join():
     db.connection.close()
     return jsonify(result)
 
+@admin_api.route("/admin/division", methods=['GET'])
+def division():
+    db = Database.fromconfig()
+    cursor = db.connection.cursor()
+    query = ("SELECT C1.City FROM City C1 WHERE NOT EXISTS ( "
+                "SELECT B1.City FROM Borough B1 "
+                "WHERE B1.Borough NOT IN ( "
+                "SELECT B2.Borough FROM Borough B2 WHERE B2.City = C1.City) )")
+
+    cursor.execute(query)
+    result = cursor.fetchall()
+
+    db.connection.close()
+    return jsonify(result)
+
+
 @admin_api.route("/admin/groupby", methods=['GET'])
 def aggregationGroupBy():
     # Format is admin/groupby?largerthan=XXXX

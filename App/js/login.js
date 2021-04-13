@@ -7,10 +7,10 @@ function loginSubmit(){
         let incorrectPrompt = document.getElementById("incorrect-submit")
         console.log(response);
         if(response){
-            localStorage.setItem("username", username);
-            localStorage.setItem("password", password);
-            incorrectPrompt.style.display = "none"; 
-            window.location.replace('/admin');
+            window.localStorage.setItem("username", username);
+            window.localStorage.setItem("password", password);
+            incorrectPrompt.style.display = "none";
+            window.location.href = '../admin/index.html';
         } else {
             incorrectPrompt.style.display = "block"; 
         }

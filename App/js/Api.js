@@ -58,7 +58,6 @@ class Api {
    * Logout authentication
    */
    authLogout(){
-     console.log("logout")
     let url = this.baseUrl + `api/auth/logout`
     let promise = new Promise(function (resolve, reject) {
       let xhr = new XMLHttpRequest()

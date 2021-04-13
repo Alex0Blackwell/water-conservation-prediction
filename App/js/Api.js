@@ -24,6 +24,65 @@ class Api {
   }
 
   /**
+   * Login authentication
+   * 
+   * @param {string} username used for Username login credential
+   * @param {string} password used for Password login credential
+   */
+   authLogin(username, password){
+    let url = this.baseUrl + `api/auth/login?`
+    let params = `username=${username}&password=${password}`
+    let promise = new Promise(function (resolve, reject) {
+      let xhr = new XMLHttpRequest()
+      xhr.open('POST', url+params)
+      xhr.send()
+
+      xhr.onload = function () {
+        if (xhr.status != 200) {
+          console.error(`Error ${xhr.status}: ${xhr.statusText}`)
+        } else {
+          let response = JSON.parse(xhr.response)
+          resolve(response)
+        }
+      }
+
+      xhr.onerror = function () {
+        reject('POST login request failed')
+      }
+    })
+
+    return promise;
+  }
+
+  /**
+   * Logout authentication
+   */
+   authLogout(){
+     console.log("logout")
+    let url = this.baseUrl + `api/auth/logout`
+    let promise = new Promise(function (resolve, reject) {
+      let xhr = new XMLHttpRequest()
+      xhr.open('POST', url)
+      xhr.send()
+
+      xhr.onload = function () {
+        if (xhr.status != 200) {
+          console.error(`Error ${xhr.status}: ${xhr.statusText}`)
+        } else {
+          let response = JSON.parse(xhr.response)
+          resolve(response)
+        }
+      }
+
+      xhr.onerror = function () {
+        reject('POST logout request failed')
+      }
+    })
+
+    return promise;
+  }
+
+  /**
    * Gets API data, provided a URL. Returns as a 2D-array
    * where each row is the requested data from each entity.
    * Requested data is specified in the indexes list.
@@ -104,7 +163,6 @@ class Api {
       _cities.push(... await this.getRegionHelper('city'));
       this.cities = _cities;
     }
-
     return this.cities;
   }
 

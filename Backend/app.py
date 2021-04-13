@@ -1,7 +1,9 @@
 from flask import Flask, request, render_template
+from flask.helpers import url_for
 from flask_cors import CORS, cross_origin
 from mysql.connector import connect
 from connection import Database
+from api.Authentication import auth_api
 from api.Borough import borough_api
 from api.BoroughWater import boroughwater_api
 from api.City import city_api
@@ -17,6 +19,7 @@ app = Flask(__name__)
 CORS(app)
 
 # registers api routing
+app.register_blueprint(auth_api, url_prefix='/api')
 app.register_blueprint(borough_api, url_prefix='/api')
 app.register_blueprint(boroughwater_api, url_prefix='/api')
 app.register_blueprint(city_api, url_prefix='/api')
@@ -27,26 +30,23 @@ app.register_blueprint(userwater_api, url_prefix='/api')
 app.register_blueprint(wateruser_api, url_prefix='/api')
 app.register_blueprint(admin_api, url_prefix='/api')
 
+app.config['DB_USERNAME'] = 'account_default'
+app.config['DB_PASSWORD'] = 'defaultuser123'
+app.config['DB_HOST'] = 'cmpt354-jakk.cfchtqoqn7bd.us-west-2.rds.amazonaws.com'
+app.config['DB_SCHEMA'] = 'jakk'
+app.config['DB_USERTYPE'] = 'default'
 
 def get_db():
   db = Database(
     app.config['DB_USERNAME'], 
     app.config['DB_PASSWORD'],
     app.config['DB_HOST'],
-    app.config['DB_SCHEMA'])
+    app.config['DB_SCHEMA'],
+    app.config['DB_USERTYPE'])
   return db
 
 @app.route("/")
 def index():
-  return render_template('index.html')
-
-@app.route("/", methods=['POST'])
-def index_post():
-  app.config['DB_USERNAME'] = request.form['username']
-  app.config['DB_PASSWORD'] = request.form['password']
-  app.config['DB_HOST'] = request.form['host_name']
-  app.config['DB_SCHEMA'] = request.form['db_name']
-
   return render_template('index.html', variable=get_db().get_response_text())
 
 @app.errorhandler(404)

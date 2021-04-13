@@ -10,6 +10,7 @@ from api.FutureBorough import futureborough_api
 from api.FutureCity import futurecity_api
 from api.UserWater import userwater_api
 from api.WaterUser import wateruser_api
+from api.Admin import admin_api
 
 
 app = Flask(__name__)
@@ -24,6 +25,7 @@ app.register_blueprint(futureborough_api, url_prefix='/api')
 app.register_blueprint(futurecity_api, url_prefix='/api')
 app.register_blueprint(userwater_api, url_prefix='/api')
 app.register_blueprint(wateruser_api, url_prefix='/api')
+app.register_blueprint(admin_api, url_prefix='/api')
 
 
 def get_db():

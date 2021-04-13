@@ -23,14 +23,14 @@
     /**
      * Checks if localStorage was set from the successful login.
      */
-    validateLogin(){
-      let loggedIn = false; 
-      if(localStorage.getItem("username") && localStorage.getItem("username")){
-        loggedIn = true;
-      }
-      if(loggedIn === false){
-        window.location.replace('/login');
-      }
+    async validateLogin() {
+      let username = localStorage.getItem('username');
+      let password = localStorage.getItem('password');
+
+      auth.authenticate(username, password).then(function(response) {
+          if(!response)
+              window.location.href = '../login/index.html';
+      });
     }
 
     /**

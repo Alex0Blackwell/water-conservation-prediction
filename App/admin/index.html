@@ -30,8 +30,8 @@
             <b>Compare Two Boroughs</b>
             <div class="row">
               <div class="col-6 control-group">
-                <label for="city">Borough 1</label>
-                <select name="city" id="city" class="select">
+                <label for="borough1">Borough 1</label>
+                <select name="join" id="borough1" class="select">
                   <option></option>
                   <option value="Queens">Queens</option>
                   <option value="Brooklyn">Brooklyn</option>
@@ -43,7 +43,7 @@
               </div>
               <div class="col-6 control-group">
                 <label for="city">Borough 2</label>
-                <select name="city" id="city" class="select">
+                <select name="join" id="borough2" class="select">
                   <option></option>
                   <option value="Queens">Queens</option>
                   <option value="Brooklyn">Brooklyn</option>
@@ -59,8 +59,8 @@
             <b>Update Borough Name</b>
             <div class="row">
               <div class="col-6 control-group">
-                <label for="city">Old Borough Name</label>
-                <select name="city" id="city" class="select">
+                <label for="oldName">Old Borough Name</label>
+                <select name="updateName" id="oldName" class="select">
                   <option></option>
                   <option value="Queens">Queens</option>
                   <option value="Brooklyn">Brooklyn</option>
@@ -71,8 +71,8 @@
                 </select>
               </div>
               <div class="col-6 control-group">
-                <label>New Borough Name</label>
-                <input id="new-borough-name" class="select text" type="text">
+                <label for="newName">New Borough Name</label>
+                <input name="updateName" id="newName" class="select text" type="text">
               </div>
             </div>
           </div>
@@ -80,36 +80,34 @@
         <div class="row">
           <div class="col-md-6 col-12">
             <b>Delete City</b>
+            <button type="button" id="undo" class="btn btn-dark" onclick="undoDeleteOperation()">Undo</button>
             <div class="row">
               <div class="col-6 control-group">
                 <label for="city">City</label>
-                <select name="city" id="city" class="select">
+                <select name="delete" id="cityToDelete" class="select">
                   <option></option>
-                  <option value="New York">New York</option>
+                  <option value="Vancouver">Vancouver</option>
                 </select>
               </div>
             </div>
           </div>
           <div class="col-md-6 col-12">
-            <b>Funded by Federal or Section 8</b>
+            <b>Get City of All Boroughs</b>
             <div class="row">
               <div class="col-6 control-group">
-                <label for="city">City</label>
-                <select name="city" id="city" class="select">
-                  <option></option>
-                  <option value="New York">New York</option>
-                </select>
+                <button class="btn btn-secondary" onclick="getCityOfAllBoroughs()">Get City</button>
               </div>
             </div>
           </div>
         </div>
         <div>
           <h3>Output:</h3>
-          <button class="btn btn-secondary">Run Query:</button>
+          <button class="btn btn-secondary" onclick="runQuery()">Run Query:</button>
+          <button class="btn btn-warning" type="button" onclick="clearAll()">Clear All</button>
           <div id="output">
             <p id="output-text">Result displayed here...</p>
           </div>
-          <button onclick="logout()">Log out</button>
+          <button class="btn btn-dark" onclick="logout()">Log out</button>
         </div>
       </main>
     </div>

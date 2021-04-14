@@ -298,6 +298,58 @@ class Api {
   }
 
   /**
+   * Compare two boroughs through a join operation
+   * 
+   * Boroughs: "bronx", "brooklyn", "fha", "manhattan", "queens", "staten island"
+   * 
+   * @param {string} borough1 name of borough 1
+   * @param {string} borough2 name of borough 2
+   */
+  async getBoroughComparison(borough1, borough2) {
+    const response = await fetch(`${this.baseUrl}api/admin/join?borough1=${borough1}&borough2=${borough2}`, { method: 'GET' });
+    return response.json();
+  }
+
+  /**
+   * Update a borough name
+   * 
+   * @param {string} oldName name of target borough to change
+   * @param {string} newName new name of borough
+   */
+  async updateBoroughName(oldName, newName) {
+    const response = await fetch(`${this.baseUrl}api/admin/updateborough?target=${oldName}&result=${newName}`,  { method: 'GET' });
+    return response.json();
+  }
+
+  /**
+   * Insert a new city into the City table
+   * 
+   * @param {string} city name of city to insert in City table 
+   */
+  async insertCity(city) {
+    const response = await fetch(`${this.baseUrl}api/admin/insertcity?city=${city}`, { method: 'POST' });
+    return response.json();
+  }
+
+  /**
+   * Delete a city from the City table
+   * 
+   * @param {string} city name of city to delete from City table 
+   */
+  async deleteCity(city) {
+    const response = await fetch(`${this.baseUrl}api/admin/deletecity?city=${city}`,  { method: 'GET' });
+    return response.json();
+  }
+
+  /**
+   * Get the city all boroughs are in
+   */
+  async getCityOfAllBoroughs() {
+    const response = await fetch(`${this.baseUrl}api/admin/division`, { method: 'GET'});
+    return response.json();
+  }
+
+  /**
    * Get the average water consumption of a city or borough in
    * a given time-frame.
    */

@@ -128,7 +128,7 @@ header .subtitle {
 #output {
   border: 2px solid var(--box-grey);
   border-radius: 10px;
-  height: 500px;
+  margin-bottom: 1em;
   background-color: var(--light-grey);
   padding: 10px;
 }

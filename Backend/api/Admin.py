@@ -76,6 +76,21 @@ def kingkong():
     db.connection.close()
     return jsonify(["Number of rows affected", cursor.rowcount])
 
+@admin_api.route("/admin/insertcity", methods=['POST'])
+def insertCity():
+    # Format is admin/insertcity?city=XXXX
+    city = request.args['city']
+
+    db = Database.fromconfig()
+    cursor = db.connection.cursor()
+    query = ("INSERT INTO jakk.City (City, Country, Population, Size) VALUES (%s, 'Canada', 630000, 500)")
+
+    cursor.execute(query, (city,))
+    db.connection.commit()
+
+    db.connection.close()
+    return jsonify(["Number of rows affected", cursor.rowcount])
+
 @admin_api.route("/admin/updateborough", methods=['GET'])
 def updateBorough():
     # Format is admin/updateborough?target=XXXX&result=XXXX

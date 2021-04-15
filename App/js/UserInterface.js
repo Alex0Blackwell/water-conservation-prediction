@@ -145,17 +145,22 @@ class UserInterface {
    * dropdown menu, and the time span slider.
    */
   async setGraph() {
-    this.setupMultiColorLine(70);
     let regionData = await this.api.getWaterData(this.startDate, this.endDate, this.region);
 
     let times = []
     let waterData = []
+    let predictionIndex = 0;
+    let lastKnownDate = new Date('2020-04-01');
     regionData.forEach((element) => {
+      if(Date.parse(element[0]) < lastKnownDate)
+        ++predictionIndex;
+
       times.push(element[0])
       waterData.push(element[1])
     })
 
     // now graph!
+    this.setupMultiColorLine(predictionIndex);
     this.resetGraph();
     const ctx = document.getElementById('graph').getContext('2d')
 

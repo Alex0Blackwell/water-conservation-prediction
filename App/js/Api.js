@@ -322,6 +322,28 @@ class Api {
   }
 
   /**
+   * Update a borough population
+   * 
+   * @param {string} borough name of target borough to change
+   * @param {string} population new population
+   */
+   async updateBoroughPopulation(borough, population) {
+    const response = await fetch(`${this.baseUrl}api/admin/updateborough/population?borough=${borough}&new_value=${population}`,  { method: 'POST' });
+    return response.json();
+  }
+
+  /**
+   * Update a borough city
+   * 
+   * @param {string} borough name of target borough to change
+   * @param {string} size new size
+   */
+   async updateBoroughSize(borough, size) {
+    const response = await fetch(`${this.baseUrl}api/admin/updateborough/size?borough=${borough}&new_value=${size}`,  { method: 'POST' });
+    return response.json();
+  }
+
+  /**
    * Insert a new city into the City table
    * 
    * @param {string} city name of city to insert in City table 

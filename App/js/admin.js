@@ -25,7 +25,9 @@ function onStart(){
  */
 const runQuery = () => {
   const boroughComparisonParameters = getInputValues("select[name='join']");
-  const updateNameParameters = getInputValues("*[name='updateName']");
+  const boroughSelectedParamater = getInputValues("*[name='updateName']");
+  const updatePopulationParameters = getInputValues("#newPopulation");
+  const updateSizeParameters = getInputValues("#newSize");
   const deleteCityParameters = getInputValues("#cityToDelete");
 
   // Compare Two Boroughs
@@ -34,12 +36,21 @@ const runQuery = () => {
       .then(res => displayOutput(res))
       .catch(err => displayOutput("Unable to do borough comparison"));
 
-  // Update Borough Name
-  } else if (areParametersNotBlank(updateNameParameters)) {
-    api.updateBoroughName(updateNameParameters[0], updateNameParameters[1])
-      .then(res => displayOutput(res))
-      .catch(err => displayOutput("Unable to update borough name"));
-
+  // Update Borough
+  } else if (areParametersNotBlank(boroughSelectedParamater)) {
+    // Update Borough Population
+    if (areParametersNotBlank(updatePopulationParameters)) {
+      api.updateBoroughPopulation(boroughSelectedParamater[0],updatePopulationParameters[0])
+        .then(res => displayOutput(res))
+        .catch(err => displayOutput("Unable to update borough population"));
+      }
+      
+    // Update Borough Size}
+    if (areParametersNotBlank(updateSizeParameters)) {
+      api.updateBoroughSize(boroughSelectedParamater[0],updateSizeParameters[0])
+        .then(res => displayOutput(res))
+        .catch(err => displayOutput("Unable to update borough size"));
+    }
   // Delete City
   } else if (areParametersNotBlank(deleteCityParameters)) {
     api.deleteCity(deleteCityParameters[0])

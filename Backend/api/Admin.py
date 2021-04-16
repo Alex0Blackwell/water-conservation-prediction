@@ -107,3 +107,34 @@ def updateBorough():
     db.connection.close()
     return jsonify(["Number of rows affected", cursor.rowcount])
 
+@admin_api.route("/admin/updateborough/population", methods=['POST'])
+def updateBoroughPopulation():
+    # Format is admin/updateborough/population?borough=XXXX&new_value=XXXX
+    borough = request.args['borough']
+    new_value = request.args['new_value']
+
+    db = Database.fromconfig()
+    cursor = db.connection.cursor()
+    query = ("UPDATE jakk.Borough SET Population = %s WHERE Borough = %s")
+
+    cursor.execute(query, ( new_value, borough))
+    db.connection.commit()
+
+    db.connection.close()
+    return jsonify(["Number of rows affected", cursor.rowcount])
+
+@admin_api.route("/admin/updateborough/size", methods=['POST'])
+def updateBoroughSize():
+    # Format is admin/updateborough/size?borough=XXXX&new_value=XXXX
+    borough = request.args['borough']
+    new_value = request.args['new_value']
+
+    db = Database.fromconfig()
+    cursor = db.connection.cursor()
+    query = ("UPDATE jakk.Borough SET Size = %s WHERE Borough = %s")
+
+    cursor.execute(query, (new_value, borough))
+    db.connection.commit()
+
+    db.connection.close()
+    return jsonify(["Number of rows affected", cursor.rowcount])

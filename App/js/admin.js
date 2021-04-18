@@ -25,6 +25,7 @@ function onStart(){
  */
 const runQuery = () => {
   const boroughComparisonParameters = getInputValues("select[name='join']");
+  const boroughConsumptionParameters = getInputValues("#consumption");
   const boroughSelectedParamater = getInputValues("*[name='updateName']");
   const updatePopulationParameters = getInputValues("#newPopulation");
   const updateSizeParameters = getInputValues("#newSize");
@@ -36,7 +37,13 @@ const runQuery = () => {
       .then(res => displayOutput(res))
       .catch(err => displayOutput("Unable to do borough comparison"));
 
-  // Update Borough
+  
+  } else if(areParametersNotBlank(boroughConsumptionParameters)){
+    api.getBoroughByConsumption(boroughConsumptionParameters[0])
+      .then(res => displayOutput(res))
+      .catch(err => displayOutput("Unable to retrieve borough by consumption"))
+      
+  // Update Borough 
   } else if (areParametersNotBlank(boroughSelectedParamater)) {
     // Update Borough Population
     if (areParametersNotBlank(updatePopulationParameters)) {

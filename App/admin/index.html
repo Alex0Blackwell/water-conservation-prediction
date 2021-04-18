@@ -84,6 +84,7 @@
           </div>
         </div>
         <div class="row">
+
           <div class="col-md-6 col-12">
             <b>Delete City</b>
             <button type="button" id="undo" class="btn btn-dark" onclick="undoDeleteOperation()">Undo</button>
@@ -97,16 +98,29 @@
               </div>
             </div>
           </div>
+
           <div class="col-md-6 col-12">
-            <b>Get City of All Boroughs</b>
+            <b>Boroughs By Consumption</b>
             <div class="row">
               <div class="col-6 control-group">
-                <button class="btn btn-secondary" onclick="getCityOfAllBoroughs()">Get City</button>
+                <label for="consumption">Consumption Greater Than</label>
+                <input name="consumption" id="consumption" class="select text" type="text">
               </div>
             </div>
           </div>
         </div>
-        <div>
+
+          <div class="row">
+              <div class="col-md-12 col-12">
+                <b>Get City of All Boroughs</b>
+                <div class="row">
+                  <div class="col-12 control-group">
+                    <button class="btn btn-secondary" onclick="getCityOfAllBoroughs()">Get City</button>
+                  </div>
+                </div>
+              </div>
+          </div>
+
           <h3>Output:</h3>
           <button class="btn btn-secondary" onclick="runQuery()">Run Query:</button>
           <button class="btn btn-warning" type="button" onclick="clearAll()">Clear All</button>

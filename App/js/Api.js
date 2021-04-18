@@ -311,6 +311,17 @@ class Api {
   }
 
   /**
+   * Get borough by consumption
+   * 
+   * @param {string} consumption consumption
+   */
+   async getBoroughByConsumption(consumption) {
+    const response = await fetch(`${this.baseUrl}api/admin/groupby?largerthan=${consumption}`,  { method: 'GET' });
+    return response.json();
+  }
+
+
+  /**
    * Update a borough name
    * 
    * @param {string} oldName name of target borough to change

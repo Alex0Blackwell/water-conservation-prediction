@@ -155,7 +155,8 @@ class UserInterface {
       if(Date.parse(element[0]) < lastKnownDate)
         ++predictionIndex;
 
-      times.push(element[0])
+      // Truncates date to only the month and year 
+      times.push(element[0].slice(8,16))
       waterData.push(element[1])
     })
 

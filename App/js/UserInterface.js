@@ -240,11 +240,11 @@ class UserInterface {
    * location and time.
    */
   setStats() {
-    document.getElementById('avg-consume').innerHTML = this.api.getAvgConsumption();
-    document.getElementById('max-consume').innerHTML = this.api.getMaxConsumption();
-    document.getElementById('min-consume').innerHTML = this.api.getMinConsumption();
-    document.getElementById('avg-price').innerHTML = '$'+this.api.getAvgPrice();
-    document.getElementById('max-price').innerHTML = '$'+this.api.getMaxPrice();
-    document.getElementById('min-price').innerHTML = '$'+this.api.getMinPrice();
+    document.getElementById('avg-consume').innerHTML = `${this.api.getAvgConsumption().toLocaleString('en')} HCF`;
+    document.getElementById('max-consume').innerHTML = `${this.api.getMaxConsumption().toLocaleString('en')} HCF`;
+    document.getElementById('min-consume').innerHTML = `${this.api.getMinConsumption().toLocaleString('en')} HCF`;
+    document.getElementById('avg-price').innerHTML = `$${this.api.getAvgPrice().toLocaleString('en')} USD`;
+    document.getElementById('max-price').innerHTML = `$${this.api.getMaxPrice().toLocaleString('en')} USD`;
+    document.getElementById('min-price').innerHTML = `$${this.api.getMinPrice().toLocaleString('en')} USD`;
   }
 }

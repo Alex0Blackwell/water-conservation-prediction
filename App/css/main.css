@@ -8,8 +8,8 @@
   --grey: #7d8dad;
   --light-grey: #c2cce0;
 
-  --gutter-desktop: 2.5em 3em;
-  --gutter-mobile: 1.5em 2em;
+  --gutter-desktop: 1em;
+  --gutter-mobile: 1em 1.5em;
 }
 
 *,
@@ -147,6 +147,16 @@ header .subtitle {
 .slider > .thumb.slider-right {
 	right: 25%;
 	transform: translate(12px, -7px);
+}
+
+.slider > .thumb.slider-divider {
+  background-color: var(--secondary-color);
+  transform: translate(12px, -12px);
+  border-radius: 1px;
+  width: 5px;
+  height: 35px;
+  right: 45%;
+  z-index: 2;
 }
 
 input[type=range] {

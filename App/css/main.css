@@ -163,6 +163,7 @@ input[type=range] {
 	position: absolute;
 	pointer-events: none;
 	-webkit-appearance: none;
+  -moz-appearance: none;
 	z-index: 2;
 	height: 10px;
 	width: 100%;
@@ -177,6 +178,16 @@ input[type=range]::-webkit-slider-thumb {
 	border: 0 none;
 	background-color: rgba(256,0,0,.3);
 	-webkit-appearance: none;
+}
+
+input[type=range]::-moz-range-thumb {
+	pointer-events: all;
+	width: 30px;
+	height: 30px;
+	border-radius: 0;
+	border: 0 none;
+	background-color: rgba(256,0,0,.3);
+	-moz-appearance: none;
 }
 
 .graph {

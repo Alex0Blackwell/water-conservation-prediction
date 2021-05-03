@@ -39,7 +39,7 @@ class UserInterface {
     this.endDate = endDate;
     this.region = region;
 
-    this.api = new Api('http://127.0.0.1:5000/');  // default for local Flask
+    this.api = new Api('https://wcp-backend.herokuapp.com/');  // default for local Flask
   }
 
   setStartDate(newStartDate) {
